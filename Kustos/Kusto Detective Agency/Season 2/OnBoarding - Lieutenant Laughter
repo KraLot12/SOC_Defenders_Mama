@@ -1,0 +1,9 @@
+DetectiveCases
+| where EventType contains "CaseSolved"
+| summarize arg_min(Timestamp,*) by CaseId
+| join kind=leftouter (
+    DetectiveCases
+    | where EventType contains "CaseOpened"
+    | extend Bounty = tolong(Properties.Bounty)
+) on CaseId
+| summarize sum(Bounty) by DetectiveId
