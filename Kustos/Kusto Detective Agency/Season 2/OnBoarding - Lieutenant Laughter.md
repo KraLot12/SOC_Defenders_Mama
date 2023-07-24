@@ -1,3 +1,4 @@
+```
 DetectiveCases
 | where EventType contains "CaseSolved"
 | summarize arg_min(Timestamp,*) by CaseId
@@ -7,3 +8,4 @@ DetectiveCases
     | extend Bounty = tolong(Properties.Bounty)
 ) on CaseId
 | summarize sum(Bounty) by DetectiveId
+```
